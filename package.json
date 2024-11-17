@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "ANALYZE=true pnpm run build"
   },
   "dependencies": {
     "@ant-design/web3": "^1.18.0",
@@ -22,6 +23,7 @@
     "wagmi": "^2.5.2"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^15.0.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
