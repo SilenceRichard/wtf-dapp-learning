@@ -2,12 +2,18 @@
 import {
   Mainnet,
   Localhost,
+  Sepolia,
   WagmiWeb3ConfigProvider,
   MetaMask,
 } from "@ant-design/web3-wagmi";
 import { parseEther } from "viem";
 import { Button, message } from "antd";
-import { http, useReadContract, useWriteContract } from "wagmi";
+import {
+  http,
+  useReadContract,
+  useWatchContractEvent,
+  useWriteContract,
+} from "wagmi";
 import {
   Address,
   NFTCard,
@@ -28,6 +34,15 @@ const CallTest = () => {
   });
 
   const { writeContract } = useWriteContract();
+  useWatchContractEvent({
+    address: "0xB3B263442CF2EfA59A1A83D77ab4725befD22C35",
+    abi,
+    eventName: "Minted",
+    onLogs() {
+      message.success("new minted!");
+      console.log("new minted!");
+    },
+  });
   return (
     <div>
       {result.data?.toString()}
@@ -111,12 +126,13 @@ const CallTest = () => {
 export default function Web3() {
   return (
     <WagmiWeb3ConfigProvider
-      chains={[Mainnet, Localhost]}
+      chains={[Mainnet, Localhost, Sepolia]}
       transports={{
         [Mainnet.id]: http(
           "https://api.zan.top/node/v1/eth/mainnet/f54457478f874ba2975e0eb4ee272b2c"
         ),
         [Localhost.id]: http("http://127.0.0.1:7545"),
+        [Sepolia.id]: http("https://eth-sepolia.g.alchemy.com/v2/jnqSYFCF95On94D4-FtBwsaCVVDbviRr"),
       }}
       wallets={[MetaMask()]}
     >
