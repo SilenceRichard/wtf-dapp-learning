@@ -7,7 +7,7 @@ const SignDemo: React.FC = () => {
   const { signMessageAsync } = useSignMessage();
   const { account } = useAccount();
   const [signLoading, setSignLoading] = React.useState(false);
-    const checkSignature = async (params: {
+  const checkSignature = async (params: {
     address?: string;
     signature: string;
   }) => {
@@ -49,7 +49,7 @@ const SignDemo: React.FC = () => {
       <Connector>
         <ConnectButton />
       </Connector>
-      <Button disabled={!account?.address} onClick={doSignature}>
+      <Button loading={signLoading} disabled={!account?.address} onClick={doSignature}>
         Sign message
       </Button>
     </Space>
